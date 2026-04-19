@@ -15,7 +15,6 @@
             --box-bg: #FFF9C4;    
         }
 
-        /* BLOCCO TOTALE DELLO SCROLL PER SCHERMATA UNICA */
         * { box-sizing: border-box; }
         body, html {
             height: 100%;
@@ -27,11 +26,7 @@
             text-transform: uppercase;
         }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        body { display: flex; justify-content: center; align-items: center; }
 
         #main-container {
             background: var(--white);
@@ -45,25 +40,38 @@
             border: 8px solid var(--primary);
             box-shadow: 0 0 40px rgba(0,0,0,0.5);
             text-align: center;
+            position: relative;
         }
 
-        h1 {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin: 0;
-            padding-bottom: 5px;
-            border-bottom: 5px solid var(--secondary);
-            font-weight: 900;
+        h1 { color: var(--primary); font-size: 1.5rem; margin: 0; padding-bottom: 5px; border-bottom: 5px solid var(--secondary); font-weight: 900; }
+
+        .help-link {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 2rem;
+            box-shadow: 3px 3px 0px #000;
+            z-index: 100;
         }
 
         .reflection-box {
             background: #F5F5F5;
-            padding: 12px;
+            padding: 15px;
             border: 5px solid var(--secondary);
-            font-size: 0.95rem;
-            line-height: 1.3;
+            font-size: 1rem;
+            line-height: 1.4;
             border-radius: 15px;
             margin: 5px 0;
+            color: #000;
         }
 
         .instructions {
@@ -87,12 +95,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #000;
         }
 
-        .options-grid {
-            display: grid;
-            gap: 8px;
-        }
+        .options-grid { display: grid; gap: 8px; }
 
         button {
             padding: 12px;
@@ -103,94 +109,102 @@
             background: var(--white);
             font-weight: 900;
             color: var(--primary);
-            text-transform: uppercase;
             box-shadow: 3px 3px 0px #000;
+            text-transform: uppercase;
         }
 
-        .start-btn {
-            background: var(--secondary);
-            color: #000;
-            padding: 15px;
-            font-size: 1.2rem;
-            border: 5px solid var(--primary);
-        }
+        .start-btn { background: var(--secondary); color: #000; padding: 15px; font-size: 1.2rem; }
 
-        .feedback {
-            font-size: 2.5rem; 
-            height: 45px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .correct { background-color: var(--success) !important; color: white !important; }
-        .wrong { background-color: var(--error) !important; color: white !important; }
+        /* FEEDBACK SOLO COLORI */
+        .correct { background-color: var(--success) !important; color: white !important; border-color: #000 !important; }
+        .wrong { background-color: var(--error) !important; color: white !important; border-color: #000 !important; }
         
         .hidden { display: none !important; }
-        .difficulty-label { font-size: 0.9rem; font-weight: bold; color: var(--primary); }
 
-        ul { margin: 5px 0; padding-left: 20px; }
-        li { margin-bottom: 3px; }
+        #end-screen {
+            background: #FFF;
+            padding: 20px;
+            border-radius: 20px;
+            border: 10px solid var(--success);
+        }
+
+        .final-title { font-size: 2.2rem; color: var(--success); font-weight: 900; margin-bottom: 10px; }
+        .final-text { font-size: 1.3rem; line-height: 1.6; color: #000; background: #F0F0F0; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        
+        #secret-code-display { font-size: 4rem; color: var(--primary); font-weight: 900; margin-top: 10px; }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 1000;
+            animation: fall 4s linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
 <div id="main-container">
-    <h1>SIAMO TUTTI SUPER! IL QUIZ 🦸‍♂️</h1>
+    <h1 id="title-main">SIAMO TUTTI SUPER! IL QUIZ 🦸‍♂️</h1>
+
+    <a id="help-bulb" href="https://teacherlauraa.github.io/superhero-flashcards/" target="_blank" class="help-link hidden">💡</a>
 
     <div id="intro-screen" style="display: flex; flex-direction: column; justify-content: space-around; height: 100%;">
         <div class="reflection-box">
-            <strong>IL NOSTRO VALORE:</strong><br>
-            OGNI EROE DELLE FLASHCARDS HA TALENTI E FRAGILITÀ. 
-            AIUTARSI A VICENDA È IL VERO POTERE. 
-            ESSERE DIVERSI È IL NOSTRO SUPERPOTERE PIÙ GRANDE!
+            <strong>LA FORZA DEL GRUPPO:</strong><br><br>
+            OGNI SUPEREROE È UNICO, MA SOLO INSIEME POSSONO VINCERE LE SFIDE PIÙ GRANDI. 
+            LAVORARE INSIEME È IL VERO POTERE CHE CI RENDE IMBATTIBILI!
         </div>
-        
         <div class="instructions">
-            <strong>SQUADRA, ASCOLTATE:</strong>
+            <strong>ISTRUZIONI PER LA SQUADRA:</strong>
             <ul>
-                <li>RIFLETTETE SUI 10 EROI DELLE FLASHCARDS.</li>
+                <li>CONFRONTATEVI SUI 10 EROI DELLE FLASHCARDS.</li>
                 <li>ASCOLTATE TUTTI I COMPAGNI DI GRUPPO.</li>
-                <li>NON È UNA CORSA: RAGIONATE INSIEME.</li>
-                <li>CLICCATE SOLO QUANDO SIETE SICURI!</li>
+                <li><strong>LA LAMPADINA:</strong> SE AVETE UN DUBBIO, CLICCATE SULLA LAMPADINA IN ALTO PER CONTROLLARE LE FLASHCARDS!</li>
+                <li>IL COLORE VERDE INDICA LA RISPOSTA GIUSTA, IL ROSSO QUELLA SBAGLIATA.</li>
             </ul>
         </div>
-        
         <button class="start-btn" onclick="startQuiz()">INIZIA LA SFIDA 🚀</button>
     </div>
 
     <div id="game-zone" class="hidden" style="display: flex; flex-direction: column; height: 100%;">
-        <div class="difficulty-label" id="difficulty-text">LIVELLO 1</div>
-        <div style="font-weight: 900; font-size: 0.9rem;">DOMANDA <span id="current-num">1</span> DI 15</div>
+        <div style="font-weight: 900; font-size: 0.9rem; color: #000; margin-bottom: 5px;">DOMANDA <span id="current-num">1</span> DI 15</div>
         <div id="question" class="question-box"></div>
         <div id="options" class="options-grid"></div>
-        <div id="feedback" class="feedback"></div>
-    </div>
+        <div style="height: 20px;"></div> </div>
 
     <div id="end-screen" class="hidden" style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
-        <h2 style="color: var(--success); font-size: 2rem;">MISSIONE COMPIUTA! 🏆</h2>
-        <p style="font-size: 1.2rem; margin: 15px 0;">SIETE UNA SQUADRA IMBATTIBILE!</p>
-        <button class="start-btn" onclick="location.reload()">RIGIOCA</button>
+        <div class="final-title">MISSIONE COMPIUTA! 🏆</div>
+        <div class="final-text">
+            AVETE LAVORATO COME UNA VERA ALLEANZA!<br>
+            RICORDATE: LA FORZA DEL SINGOLO È GRANDE, MA LA FORZA DELLA SQUADRA È IMBATTIBILE.
+        </div>
+        <button id="reveal-btn" class="start-btn" onclick="revealCode()">RIVELA CODICE</button>
+        <div id="secret-code-display" class="hidden">8</div>
     </div>
 </div>
 
 <script>
     const quizData = [
-        { q: "QUALE EROE PROTEGGE GOTHAM CITY SENZA AVERE SUPERPOTERI NATURALI?", opt: ["SUPERMAN", "BATMAN", "CAPITAN AMERICA"], cor: 1 },
-        { q: "DI QUALE MATERIALE È FATTO LO SCUDO DI CAPITAN AMERICA?", opt: ["ACCIAIO", "VIBRANIO INDISTRUTTIBILE", "FERRO E ORO"], cor: 1 },
-        { q: "QUALE EROINA È DEFINITA LA PRINCIPESSA DELLE AMAZZONI?", opt: ["BLACK WIDOW", "SCARLET WITCH", "WONDER WOMAN"], cor: 2 },
-        { q: "COSA È SUCCESSO A HULK PER DIVENTARE UN GIGANTE VERDE?", opt: ["ESPOSIZIONE A RAGGI GAMMA", "UN MORSO DI RAGNO", "È NATO COSÌ"], cor: 0 },
-        { q: "QUALE EROE È IL DIO DEL TUONO E VIENE DA ASGARD?", opt: ["IRON MAN", "THOR", "SUPERMAN"], cor: 1 },
-        { q: "PERCHÉ TONY STARK HA CREATO LA PRIMA ARMATURA DI IRON MAN?", opt: ["PER DIVENTARE RICCO", "PER SALVARSI IL CUORE", "PER VIAGGIARE NELLO SPAZIO"], cor: 1 },
-        { q: "QUALE ELEMENTO NATURALE È LA DEBOLEZZA DI SUPERMAN?", opt: ["LA KRYPTONITE", "IL GHIACCIO", "L'ELETTRICITÀ"], cor: 0 },
-        { q: "IN CHE MODO PETER PARKER HA OTTENUTO I SUOI SUPERPOTERI?", opt: ["CON UN ALLENAMENTO", "MORSO DA UN RAGNO RADIOATTIVO", "CON UNA MACCHINA"], cor: 1 },
-        { q: "QUALE EROINA È UNA SPIA ESPERTA SENZA POTERI MAGICI?", opt: ["SCARLET WITCH", "BLACK WIDOW", "WONDER WOMAN"], cor: 1 },
-        { q: "CHI È L'EROE MILIARDARIO CHE USA LA TECNOLOGIA AVANZATA?", opt: ["TONY STARK (IRON MAN)", "PETER PARKER", "CLARK KENT"], cor: 0 },
-        { q: "QUALE EROINA USA LA MAGIA E PUÒ MODIFICARE LA REALTÀ?", opt: ["WONDER WOMAN", "SCARLET WITCH", "BLACK WIDOW"], cor: 1 },
-        { q: "QUALE EROE RAPPRESENTA IL SIMBOLO DELLA GIUSTIZIA AMERICANA?", opt: ["BATMAN", "THOR", "CAPITAN AMERICA"], cor: 2 },
-        { q: "CHI È L'EROE CHE È STATO MANDATO SULLA TERRA DAL PIANETA KRYPTON?", opt: ["SUPERMAN", "SPIDER-MAN", "HULK"], cor: 0 },
-        { q: "WONDER WOMAN COSA USA PER FAR DIRE LA VERITÀ AI NEMICI?", opt: ["LO SCUDO DELLA VERITÀ", "IL LASSO DELLA VERITÀ", "IL MARTELLO DELLA VERITÀ"], cor: 1 },
-        { q: "QUALE EROE USA I SENSI POTENZIATI PER AVVERTIRE IL PERICOLO?", opt: ["THOR", "SPIDER-MAN", "CAPITAN AMERICA"], cor: 1 }
+        { q: "QUALE EROE PROTEGGE GOTHAM CITY SENZA POTERI NATURALI?", opt: ["SUPERMAN", "BATMAN", "CAPITAN AMERICA"], cor: 1 },
+        { q: "DI QUALE MATERIALE È FATTO LO SCUDO DI CAPITAN AMERICA?", opt: ["ACCIAIO", "VIBRANIO", "ORO"], cor: 1 },
+        { q: "CHI È LA PRINCIPESSA DELLE AMAZZONI?", opt: ["BLACK WIDOW", "SCARLET WITCH", "WONDER WOMAN"], cor: 2 },
+        { q: "COSA HA TRASFORMATO HULK?", opt: ["RAGGI GAMMA", "MORSO DI RAGNO", "MAGIA"], cor: 0 },
+        { q: "CHI È IL DIO DEL TUONO?", opt: ["IRON MAN", "THOR", "SUPERMAN"], cor: 1 },
+        { q: "PERCHÉ TONY STARK HA CREATO IRON MAN?", opt: ["PER RICCHEZZA", "PER SALVARSI IL CUORE", "PER VOLARE"], cor: 1 },
+        { q: "QUAL È LA DEBOLEZZA DI SUPERMAN?", opt: ["KRYPTONITE", "GHIACCIO", "FUOCO"], cor: 0 },
+        { q: "COME HA AVUTO I POTERI SPIDER-MAN?", opt: ["ALLENAMENTO", "MORSO DI RAGNO", "MACCHINA"], cor: 1 },
+        { q: "CHI È UNA SPIA SENZA POTERI MAGICI?", opt: ["SCARLET", "BLACK WIDOW", "WONDER"], cor: 1 },
+        { q: "CHI È IL MILIARDARIO TECNOLOGICO?", opt: ["TONY STARK", "PETER PARKER", "CLARK KENT"], cor: 0 },
+        { q: "CHI PUÒ MODIFICARE LA REALTÀ CON LA MAGIA?", opt: ["WONDER WOMAN", "SCARLET WITCH", "BLACK WIDOW"], cor: 1 },
+        { q: "CHI È IL SIMBOLO DELLA GIUSTIZIA AMERICANA?", opt: ["BATMAN", "THOR", "CAPITAN AMERICA"], cor: 2 },
+        { q: "CHI VIENE DAL PIANETA KRYPTON?", opt: ["SUPERMAN", "SPIDER-MAN", "HULK"], cor: 0 },
+        { q: "COSA USA WONDER WOMAN PER LA VERITÀ?", opt: ["SCUDO", "LASSO", "MARTELLO"], cor: 1 },
+        { q: "CHI HA I SENSI POTENZIATI PER IL PERICOLO?", opt: ["THOR", "SPIDER-MAN", "CAPITAN AMERICA"], cor: 1 }
     ];
 
     let currentIdx = 0;
@@ -198,23 +212,18 @@
     function startQuiz() {
         document.getElementById('intro-screen').classList.add('hidden');
         document.getElementById('game-zone').classList.remove('hidden');
+        document.getElementById('help-bulb').classList.remove('hidden');
         loadQuestion();
     }
 
     function loadQuestion() {
-        if(currentIdx >= quizData.length) return showEnd();
+        if(currentIdx >= quizData.length) return startCelebration();
         
-        const diffText = document.getElementById('difficulty-text');
-        if (currentIdx < 5) diffText.innerText = "LIVELLO 1";
-        else if (currentIdx < 10) diffText.innerText = "LIVELLO 2";
-        else diffText.innerText = "LIVELLO 3";
-
         document.getElementById('current-num').innerText = currentIdx + 1;
         const current = quizData[currentIdx];
         document.getElementById('question').innerText = current.q;
         const optEl = document.getElementById('options');
         optEl.innerHTML = '';
-        document.getElementById('feedback').innerText = '';
 
         current.opt.forEach((o, i) => {
             const btn = document.createElement('button');
@@ -229,14 +238,11 @@
         const btns = document.querySelectorAll('#options button');
         btns.forEach(b => b.style.pointerEvents = "none");
 
-        const fb = document.getElementById('feedback');
         if(sel === cor) {
             btn.classList.add('correct');
-            fb.innerText = "✅";
         } else {
             btn.classList.add('wrong');
             btns[cor].classList.add('correct');
-            fb.innerText = "❌";
         }
 
         setTimeout(() => {
@@ -245,9 +251,30 @@
         }, 2000);
     }
 
-    function showEnd() {
+    function startCelebration() {
         document.getElementById('game-zone').classList.add('hidden');
-        document.getElementById('end-screen').classList.remove('hidden');
+        document.getElementById('title-main').classList.add('hidden');
+        document.getElementById('help-bulb').classList.add('hidden');
+        
+        for (let i = 0; i < 80; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = ['#FFD600', '#D32F2F', '#388E3C', '#FFF', '#29B6F6'][Math.floor(Math.random() * 5)];
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(confetti);
+        }
+
+        setTimeout(() => {
+            const allConfetti = document.querySelectorAll('.confetti');
+            allConfetti.forEach(c => c.remove());
+            document.getElementById('end-screen').classList.remove('hidden');
+        }, 5000);
+    }
+
+    function revealCode() {
+        document.getElementById('reveal-btn').classList.add('hidden');
+        document.getElementById('secret-code-display').classList.remove('hidden');
     }
 </script>
 </body>
